@@ -18,7 +18,7 @@ for i in *
 do
 	echo "[$(date '+%T')] Backing up $i and processing..."
 	cp $i $MAILDIR/cur/
-	mkdir $MAILDIR/extracted/$i
+	mkdir -p $MAILDIR/extracted/$i
 	mv $i $MAILDIR/extracted/$i/
 
 	munpack -C $MAILDIR/extracted/$i -q $MAILDIR/extracted/$i/$i

@@ -37,7 +37,7 @@ Here's an example for Gmail:
 
 ```
 poll imap.gmail.com protocol IMAP
-	user "example@gmail.com" password "testing"
+	user "example@gmail.com" password "testing" is root here
 keep
 mimedecode
 ssl
