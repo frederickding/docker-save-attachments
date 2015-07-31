@@ -20,6 +20,7 @@ if [ -f /config/.fetchmailrc ]; then
 			sed -i 's/mda.*/mda "\/usr\/bin\/maildrop"/' /root/.fetchmailrc
 		else
 			echo 'mda "/usr/bin/maildrop"' >> /root/.fetchmailrc
+		fi
 	fi
 	chmod 0700 /root/.fetchmailrc
 	echo "Installed .fetchmailrc"
