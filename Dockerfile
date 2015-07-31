@@ -2,17 +2,16 @@ FROM ubuntu:latest
 
 MAINTAINER Ding Corporation
 
+VOLUME /var/mail /config /output
+
 # install packages
 RUN apt-get update \
     && apt-get install -y fetchmail maildrop mpack \
     && apt-get clean && rm -fr /var/lib/apt/lists/*
 
-VOLUME /var/mail
-VOLUME /config
-
 RUN maildirmake /var/mail/working \
     && echo "to /var/mail/working" > /root/.mailfilter
-TOUCH /var/mail/save-attachments.log
+RUN touch /var/mail/save-attachments.log
 
 ADD save-attachments.crontab /etc/cron.d/save-attachments
 ADD save-attachments.sh /opt/save-attachments.sh
