@@ -3,7 +3,7 @@
 # verify maildir
 if [ -d /var/mail/working ]; then
 	echo "/var/mail/working exists"
-	chown -r root /var/mail/working
+	chown -R root /var/mail/working
 else
 	maildirmake /var/mail/working
 	echo "to /var/mail/working" > /root/.mailfilter
