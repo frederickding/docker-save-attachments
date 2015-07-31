@@ -10,6 +10,8 @@ RUN apt-get update \
     && apt-get clean && rm -fr /var/lib/apt/lists/*
 
 RUN maildirmake /var/mail/working \
+    && mkdir /var/mail/working/landing \
+    && mkdir /var/mail/working/extracted \
     && echo "to /var/mail/working" > /root/.mailfilter
 RUN touch /var/mail/save-attachments.log
 

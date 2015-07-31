@@ -6,6 +6,8 @@ if [ -d /var/mail/working ]; then
 	chown -R root /var/mail/working
 else
 	maildirmake /var/mail/working
+	mkdir /var/mail/working/landing
+	mkdir /var/mail/working/extracted
 	echo "to /var/mail/working" > /root/.mailfilter
 fi
 
