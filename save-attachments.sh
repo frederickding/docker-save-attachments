@@ -37,15 +37,15 @@ do
 	rm $MAILDIR/extracted/$i/$i
 	for z in $MAILDIR/extracted/$i/*
 	do
-		cp -v $z $DESTINATION/$MSGDATE/$MSGTIME/$(basename $z)
+		cp -v --no-preserve=mode,ownership $z $DESTINATION/$MSGDATE/$MSGTIME/$(basename $z)
 		rm $z
 	done
+
+	if [[ $DEBUG -eq 0 ]]; then
+		rm -fr $MAILDIR/extracted/$i/
+	fi
 done
 
 shopt -u nullglob
-
-if [[ $DEBUG -eq 0 ]]; then
-	rm -fr $MAILDIR/extracted/$i/
-fi
 
 echo "[$(date '+%T')] Done!"
