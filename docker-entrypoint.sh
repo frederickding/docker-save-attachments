@@ -45,7 +45,8 @@ if [ "$1" = 'cron' ] || [ "$1" = '/opt/save-attachments.sh' ]; then
 fi
 
 if [ "$1" = 'cron' ]; then
-	exec /usr/sbin/cron && tail -f /var/mail/save-attachments.log
-else
-	exec "$@"
+	/usr/sbin/cron && tail -f /var/mail/save-attachments.log
+	exit $?
 fi
+
+exec $@
