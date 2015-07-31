@@ -55,6 +55,6 @@ For example, suppose an IMAP server uses a certificate signed by Acme Intermedia
 
 ### Mounting network storage (optional)
 
-This container by itself doesn't handle any storage configuration. Ideally, you should do so on the Docker host and pass a path to the container using `-v` to bind a volume.
+This container by itself doesn't handle any storage configuration. Ideally, you should do so on the Docker host and pass a path to the container using `-v` to bind a volume. You should note that if the Docker host has SELinux enabled, you may need to mount the NFS share with the `svirt_sandbox_file_t` context using the mount option `context="system_u:object_r:svirt_sandbox_file_t:s0"`.
 
 You could also use a data volume container for `/output` and expose this directory to another containerized daemon (e.g. HTTP server), but that is again outside the scope of this image's functionality.
