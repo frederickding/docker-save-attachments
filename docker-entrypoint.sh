@@ -9,6 +9,7 @@ else
 	mkdir /var/mail/working/landing
 	mkdir /var/mail/working/extracted
 	echo "to /var/mail/working" > /root/.mailfilter
+	touch /var/mail/save-attachments.log
 fi
 
 # check for user config fetchmailrc
@@ -35,6 +36,7 @@ then
 	update-ca-certificates
 fi
 
+echo "$1"
 if [ "$1" = 'cron' ] || [ "$1" = '/opt/save-attachments.sh' ]; then
 	if [ ! -f /root/.fetchmailrc ]; then
 		echo "Cannot start container without .fetchmailrc"
@@ -42,4 +44,8 @@ if [ "$1" = 'cron' ] || [ "$1" = '/opt/save-attachments.sh' ]; then
 	fi
 fi
 
-exec "$@"
+if [ "$1" = 'cron' ]; then
+	exec /usr/sbin/cron && tail -f /var/mail/save-attachments.log
+else
+	exec "$@"
+fi

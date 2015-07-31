@@ -4,6 +4,9 @@ MAINTAINER Ding Corporation
 
 VOLUME /var/mail /config /output
 
+ADD save-attachments.crontab /etc/cron.d/save-attachments
+ADD save-attachments.sh /opt/save-attachments.sh
+
 # install packages
 RUN apt-get update \
     && apt-get install -y fetchmail maildrop mpack \
@@ -12,13 +15,10 @@ RUN apt-get update \
 RUN maildirmake /var/mail/working \
     && mkdir /var/mail/working/landing \
     && mkdir /var/mail/working/extracted \
-    && echo "to /var/mail/working" > /root/.mailfilter
-RUN touch /var/mail/save-attachments.log
-
-ADD save-attachments.crontab /etc/cron.d/save-attachments
-ADD save-attachments.sh /opt/save-attachments.sh
-RUN chmod 0644 /etc/cron.d/save-attachments
+    && echo "to /var/mail/working" > /root/.mailfilter \
+    && touch /var/mail/save-attachments.log \
+    && chmod 0644 /etc/cron.d/save-attachments
 
 ADD docker-entrypoint.sh /opt/docker-entrypoint.sh
 ENTRYPOINT ["/opt/docker-entrypoint.sh"]
-CMD cron && tail -f /var/mail/save-attachments.log
+CMD ["cron"]
